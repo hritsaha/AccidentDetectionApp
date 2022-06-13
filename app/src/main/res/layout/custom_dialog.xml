@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
+    android:layout_gravity="center"
+    android:background="@android:color/transparent"
+    android:layout_height="wrap_content">
+
+
+            <LinearLayout
+
+                android:background="@drawable/rounded"
+                android:gravity="center"
+                android:layout_marginTop="30dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_marginTop="40dp"
+                    android:gravity="center"
+                    android:text="Accident\nDetected!"
+                    android:textColor="@color/ms_white"
+                    android:textSize="32sp"
+                    android:fontFamily="@font/inter_bold"
+                    android:textStyle="bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </TextView>
+
+                <TextView
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:text="Are You Okay?"
+                    android:textColor="@color/ms_white"
+                    android:textSize="22sp"
+                    android:fontFamily="@font/inter_bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </TextView>
+
+                <Button
+                    android:id="@+id/nohelpBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="76dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginRight="30dp"
+                    android:backgroundTint="@color/white"
+                    android:fontFamily="@font/inter_bold"
+                    android:text="Yes I'm Okay"
+                    android:textAllCaps="false"
+                    android:textColor="@color/ms_black_txt"
+                    android:textSize="23sp"
+                    android:textStyle="bold"
+                    app:cornerRadius="200dp">
+
+                </Button>
+
+                <Button
+                    android:id="@+id/helpBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="76dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginRight="30dp"
+                    android:backgroundTint="@color/ms_black_txt"
+                    android:fontFamily="@font/inter_bold"
+                    android:text="Help Me!"
+                    android:textAllCaps="false"
+                    android:textColor="@color/ms_white"
+                    android:textSize="23sp"
+                    android:textStyle="bold"
+                    app:cornerRadius="200dp">
+
+                </Button>
+
+                <LinearLayout
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="25dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:gravity="center"
+                        android:text="Sending SOS in "
+                        android:textColor="@color/ms_white"
+                        android:textSize="18sp"
+                        android:fontFamily="@font/inter_bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/secondsTv"
+                        android:gravity="center"
+                        android:text="5"
+                        android:textStyle="bold"
+                        android:textColor="@color/ms_white"
+                        android:textSize="18sp"
+                        android:fontFamily="@font/inter_bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                    </TextView>
+
+                    <TextView
+                        android:gravity="center"
+                        android:text=" seconds"
+                        android:textColor="@color/ms_white"
+                        android:textSize="18sp"
+                        android:fontFamily="@font/inter_bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                    </TextView>
+
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:gravity="center"
+                android:background="@android:color/transparent"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/rounded_bg"
+                        android:elevation="5dp"
+                        android:src="@drawable/ellipse_2"
+                        android:layout_width="65dp"
+                        android:layout_height="65dp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                    </ImageView>
+                    <ImageView
+                        android:elevation="5dp"
+                        android:src="@drawable/ic_warning"
+                        android:layout_centerVertical="true"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="@id/rounded_bg"
+                        android:layout_width="38dp"
+                        android:layout_height="38dp">
+
+                    </ImageView>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+            </LinearLayout>
+
+
+
+</RelativeLayout>
