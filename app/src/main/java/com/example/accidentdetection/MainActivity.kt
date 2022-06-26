@@ -7,6 +7,7 @@ import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.location.Geocoder
+import android.location.Location
 import android.os.*
 import android.view.LayoutInflater
 import android.view.View
@@ -57,6 +58,8 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     internal var countOn : Boolean = true
     private var counting = 0
     lateinit var dialogLayout :View
+
+    lateinit var locationRes : Location
 
 
 
@@ -288,8 +291,9 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             PermissionUtils.isAccessFineLocationGranted(this) -> {
                 when {
                     PermissionUtils.isLocationEnabled(this) -> {
-                        setUpLocationListener()
 //                        setUpFragment()
+                        setUpLocationListener()
+
 
                     }
                     else -> {
@@ -316,7 +320,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     private fun setUpLocationListener() {
         val fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
         //gets location every 4 minutes
-        val locationRequest = LocationRequest().setInterval(240000).setFastestInterval(240000)
+        val locationRequest = LocationRequest().setInterval(2000).setFastestInterval(2000)
             .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
 
 
@@ -330,6 +334,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             // for ActivityCompat#requestPermissions for more details.
             return
         }
+        setUpFragment()
         fusedLocationProviderClient.requestLocationUpdates(
             locationRequest,
             object : LocationCallback() {
@@ -351,6 +356,12 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                         lastUpdatedLat=location.latitude
                         lastUpdatedLong=location.longitude
 
+
+//                        if(MapsFragment().googleMap != null){
+//                            MapsFragment().setUserLocationMarker(locationResult.lastLocation)
+//                        }
+                        locationRes=locationResult.lastLocation
+
 //                        setUpFragment()
 
                     }
@@ -361,7 +372,8 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             Looper.myLooper()
         ).addOnSuccessListener {
             Handler().postDelayed({
-                setUpFragment()
+//                setUpFragment()
+
             }, 4000)
 
         }
