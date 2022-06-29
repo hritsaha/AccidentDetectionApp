@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/linearLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="265dp"
+    android:gravity="center"
+    android:layout_gravity="center_horizontal"
+    android:background="@drawable/rounded_corner_20"
+    android:backgroundTint="#FF910F"
+    android:padding="4dp"
+    android:orientation="horizontal"
+
+    android:layout_height="60dp">
+
+    <ImageView
+        android:src="@drawable/ic_alert_triangle"
+        android:layout_marginRight="4dp"
+        android:layout_width="28dp"
+        android:layout_height="28dp">
+
+    </ImageView>
+
+    <TextView
+        android:id="@+id/toast_txt"
+        android:padding="5dp"
+        android:text="Accident Prone Area!"
+        android:textSize="15sp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/inter_bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+
+    </TextView>
+
+</LinearLayout>

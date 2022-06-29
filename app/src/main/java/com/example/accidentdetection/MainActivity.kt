@@ -9,10 +9,12 @@ import android.hardware.SensorManager
 import android.location.Geocoder
 import android.location.Location
 import android.os.*
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager.LayoutParams
 import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
@@ -22,8 +24,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.os.postDelayed
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import com.example.accidentdetection.AlertSystem.Distance
 import com.example.accidentdetection.LocationAndMaps.MapsFragment
 import com.example.accidentdetection.LocationAndMaps.PermissionUtils
 import com.example.accidentdetection.LocationAndMaps.Vals
@@ -33,8 +37,9 @@ import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import java.util.*
+import kotlin.concurrent.thread
 
-@Suppress("DEPRECATION")
+@Suppress("DEPRECATION", "DeferredResultUnused")
 class MainActivity : AppCompatActivity(), SensorEventListener {
 
     private lateinit var sensorManager : SensorManager
@@ -157,10 +162,18 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             yval.text=y.toString()
             zval.text=z.toString()
 
-            if(x.toInt() > 2 && count == 0){
-                count=2
-                stopListening()
+            val xD = x.toDouble()
+            val yD = y.toDouble()
+            val zD = z.toDouble()
 
+//            if(x.toInt() > 2 && count == 0){
+//                count=2
+//                stopListening()
+//
+//            }
+
+            if(checkThreshold(xD,yD,zD)){
+                stopListening()
             }
         }
 
@@ -178,7 +191,19 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     override fun onAccuracyChanged(event: Sensor?, p1: Int) {
     }
 
-    
+    private fun checkThreshold(x : Double,y:Double,z:Double) : Boolean{
+        val ax2 = Math.pow(x,2.0)
+        val ay2 = Math.pow(y,2.0)
+        val az2 = Math.pow(x,2.0)
+        val aSum = ax2+ay2+az2
+        val acc = Math.sqrt(aSum)
+        val GVAL = acc / 9.806
+
+        if(GVAL > 4){
+            return true
+        }
+        return false
+    }
 
     //Code For launching Dialog Box
     private fun stopListening(){
@@ -188,37 +213,6 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     }
 
     private fun launchDialogBox(){
-
-//        val builder = AlertDialog.Builder(this)
-//        val inflater : LayoutInflater= LayoutInflater.from(this)
-//        dialogLayout  = inflater.inflate(R.layout.dialog_details,null)
-//        val tt  = dialogLayout.findViewById<TextView>(R.id.timeTv)
-//
-//        timerStart()
-//
-//        tt.text=counting.toString()
-//
-//        with(builder){
-//            setTitle("SOS")
-//            setPositiveButton("Send Now"){dialog,which ->
-//                Toast.makeText(context,"SOS Sent!",Toast.LENGTH_SHORT).show()
-//                dialog.cancel()
-//            }
-//            setNegativeButton("Dismiss!"){dialog,which ->
-//                dialog.cancel()
-//            }
-//
-//            setView(dialogLayout)
-//            show()
-//        }
-
-
-
-//        val inflater : LayoutInflater = LayoutInflater.from(this)
-//        dialogLayout  = inflater.inflate(R.layout.custom_dialog,null)
-//        val builder = AlertDialog.Builder(this)
-//                .setView(dialogLayout)
-//        val tt  = dialogLayout.findViewById<TextView>(R.id.secondsTv)
 
         dialogLayout = LayoutInflater.from(this).inflate(R.layout.custom_dialog,null)
         val mBuilder = AlertDialog.Builder(this)
@@ -318,9 +312,10 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     }
 
     private fun setUpLocationListener() {
+
         val fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
         //gets location every 4 minutes
-        val locationRequest = LocationRequest().setInterval(2000).setFastestInterval(2000)
+        val locationRequest = LocationRequest().setInterval(3000).setFastestInterval(3000)
             .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
 
 
@@ -335,6 +330,9 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             return
         }
         setUpFragment()
+
+        val handlerThread = HandlerThread("LocationCallbackThread")
+        handlerThread.start()
         fusedLocationProviderClient.requestLocationUpdates(
             locationRequest,
             object : LocationCallback() {
@@ -349,9 +347,12 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                         Vals.lati=location.latitude
                         Vals.longi=location.longitude
 
-                        lat.text = location.latitude.toString()
-                        long.text = location.longitude.toString()
-                        loc.text= lastUpdatedLocation.toString()
+                        runOnUiThread {
+                            lat.text = location.latitude.toString()
+                            long.text = location.longitude.toString()
+                            loc.text= lastUpdatedLocation.toString()
+                            alertSystem(Vals.lati,Vals.longi)
+                        }
 
                         lastUpdatedLat=location.latitude
                         lastUpdatedLong=location.longitude
@@ -362,6 +363,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 //                        }
                         locationRes=locationResult.lastLocation
 
+
 //                        setUpFragment()
 
                     }
@@ -369,14 +371,8 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                     // For example: Update the location of user on server
                 }
             },
-            Looper.myLooper()
-        ).addOnSuccessListener {
-            Handler().postDelayed({
-//                setUpFragment()
-
-            }, 4000)
-
-        }
+            handlerThread.looper
+        )
 
 
     }
@@ -393,6 +389,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                     when {
                         PermissionUtils.isLocationEnabled(this) -> {
                             setUpLocationListener()
+
                         }
                         else -> {
                             PermissionUtils.showGPSNotEnabledDialog(this)
@@ -422,4 +419,22 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         cityName = area + ","+city+","+state+","+postalCode+","+knownName
         return cityName
     }
+
+    private fun alertSystem(lat: Double,long : Double){
+        val d  : Distance= Distance.getInstance()
+        val check : Boolean= d.caldistance(lat,long)
+        Handler().postDelayed({
+            if(check == true){
+                val my = Toast(this)
+                my.apply {
+                    val layout : View = LinearLayout.inflate(applicationContext,R.layout.custom_toast_accident_alert,null)
+                    duration=Toast.LENGTH_SHORT
+                    setGravity(Gravity.TOP,0,0)
+                    view=layout
+                }.show()
+            }
+        }, 3000)
+
+    }
+
 }
