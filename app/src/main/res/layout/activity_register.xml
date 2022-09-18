@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_login"
+    android:orientation="vertical"
+    tools:context=".Firebase.RegisterActivity">
+
+
+    <LinearLayout
+        android:layout_gravity="center"
+        android:id="@+id/topGraphic"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:background="@drawable/map_marker"
+                android:layout_width="50dp"
+                android:layout_height="50dp">
+
+            </ImageView>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_regular"
+                android:text="ACC"
+                android:textColor="@color/white"
+
+                android:textSize="47sp">
+
+            </TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_bold"
+                android:text="SAFE"
+                android:textColor="@color/ms_deep_blue"
+                android:textSize="47sp"
+                android:textStyle="bold">
+
+            </TextView>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:background="@drawable/rounded_curve"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:padding="30dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/registerDis"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="17dp"
+                android:fontFamily="@font/inter_bold"
+                android:text="Register"
+                android:textColor="@color/ms_deep_blue"
+                android:textSize="25sp">
+
+            </TextView>
+
+
+            <EditText
+                android:id="@+id/txt_name"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_below="@id/registerDis"
+                android:ems="10"
+                android:fontFamily="@font/inter_regular"
+                android:hint="Full Name"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/txt_email"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:fontFamily="@font/inter_regular"
+                android:layout_below="@id/txt_name"
+                android:ems="10"
+                android:hint="Email"
+                android:inputType="textPersonName"
+                tools:ignore="TextFields" />
+
+            <EditText
+                android:id="@+id/txt_password"
+                android:layout_width="370dp"
+                android:layout_height="70dp"
+                android:layout_below="@id/txt_email"
+                android:ems="10"
+                android:fontFamily="@font/inter_regular"
+                android:hint="Password"
+                android:inputType="textPassword" />
+
+            <EditText
+                android:id="@+id/txt_confirm_password"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:fontFamily="@font/inter_regular"
+                android:layout_below="@id/txt_password"
+                android:ems="10"
+                android:hint="Confirm Password"
+                android:inputType="textPassword" />
+
+            <EditText
+                android:id="@+id/txt_phone"
+                android:layout_width="372dp"
+                android:layout_height="70dp"
+                android:layout_below="@id/txt_confirm_password"
+                android:ems="10"
+                android:fontFamily="@font/inter_regular"
+                android:hint="Phone Number"
+                android:inputType="textPersonName" />
+
+            <ProgressBar
+                android:id="@+id/p_bar"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_below="@id/txt_phone"
+                android:layout_centerHorizontal="true"
+                android:visibility="invisible"
+                android:layout_marginTop="15dp"
+                app:tint="@color/ms_deep_blue" />
+
+            <Button
+                android:id="@+id/btn_register"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/textView_login"
+                android:layout_marginTop="52dp"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/rounded_btn"
+                android:fontFamily="@font/inter_bold"
+                android:text="Register"
+                android:textSize="19sp"
+                app:backgroundTint="#171421" />
+
+            <TextView
+                android:id="@+id/textView_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="@font/inter_bold"
+                android:text="Already have an account?"
+                android:textColor="@color/ms_blue"
+                android:textColorLink="#3F51B5" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

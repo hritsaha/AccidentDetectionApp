@@ -19,6 +19,8 @@ public class Distance {
         map.put(22.5253609,88.4370163);
         map.put(22.626948,88.378681);
         map.put(22.57662,88.47931);
+//        BISWA BANGLA GATE
+        map.put(22.578806253258964, 88.4717260252482);
 
         map.put(26.12455880,89.46500256);
         map.put(26.12782125,89.46316961);
@@ -26,6 +28,14 @@ public class Distance {
         map.put(26.12871375,89.46460425);
         map.put(22.1011392, 88.1291549);
         map.put(22.1186415, 88.1206573);
+        //bishal
+        map.put(24.17302,88.27313);
+        map.put(24.188309,88.267448);
+        map.put(24.173309, 88.270387);
+        //swarup
+        map.put(23.798132, 88.455021);
+        //souvik
+        map.put(22.7261958, 87.9713137);
 
         array.add(22.6001338);
         array.add(22.466318);
@@ -44,6 +54,10 @@ public class Distance {
         array.add(26.12871375);
         array.add(22.1011392);
         array.add(22.1186415);
+
+        array.add(22.578806253258964);
+        array.add(23.798132);
+        array.add(22.7261958);
         Collections.sort(array);
     }
     //singleton method

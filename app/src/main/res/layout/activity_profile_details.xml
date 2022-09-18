@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    tools:context=".Firebase.ProfileDetailsActivity">
+
+    <ImageView
+        android:id="@+id/backToMainBtn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/ic_back"
+        android:backgroundTint="@color/ms_deep_blue">
+
+    </ImageView>
+
+    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/profile_image_d"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="55dp"
+        android:elevation="5dp"
+        android:src="@drawable/kokonod" />
+
+    <LinearLayout
+        android:layout_below="@id/profile_image_d"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/profile_username_d_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_below="@id/profile_image_d"
+            android:fontFamily="@font/inter_bold"
+            android:text="Username"
+            android:textColor="@color/ms_blue"
+            android:textSize="21sp">
+        </TextView>
+
+        <TextView
+            android:id="@+id/profile_username_d"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/profile_username_d_title"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/inter_regular"
+            android:text="Username"
+            android:textColor="@color/ms_deep_blue"
+            android:textSize="25sp">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/profile_age_d_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_below="@id/profile_username_d"
+            android:fontFamily="@font/inter_bold"
+            android:text="Age"
+            android:textColor="@color/ms_blue"
+            android:textSize="21sp">
+        </TextView>
+
+        <TextView
+            android:id="@+id/profile_age_d"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_below="@id/profile_age_d_title"
+            android:fontFamily="@font/inter_regular"
+            android:text="Age"
+            android:textColor="@color/ms_deep_blue"
+            android:textSize="25sp">
+        </TextView>
+
+        <TextView
+            android:id="@+id/profile_sex_d_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_below="@id/profile_age_d"
+            android:fontFamily="@font/inter_bold"
+            android:text="Sex"
+            android:textColor="@color/ms_blue"
+            android:textSize="21sp">
+        </TextView>
+
+        <TextView
+            android:id="@+id/profile_sex_d"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_below="@id/profile_sex_d_title"
+            android:fontFamily="@font/inter_regular"
+            android:text="Sex"
+            android:textColor="@color/ms_deep_blue"
+            android:textSize="25sp">
+        </TextView>
+
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/signOutBtn"
+        android:text="Sign Out"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:fontFamily="@font/inter_bold"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content">
+
+    </Button>
+
+
+</RelativeLayout>

@@ -1,93 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="22dp"
+    android:paddingLeft="25dp"
+    android:paddingRight="25dp"
     android:background="@color/ms_white"
     tools:context=".MainActivity">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/profile_image"
-        android:layout_width="111dp"
-        android:layout_height="111dp"
-        android:layout_marginTop="25dp"
-        android:elevation="15dp"
-        android:layout_gravity="center"
-        android:layout_centerInParent="true"
-        android:src="@drawable/kokonod"
-        />
-
     <TextView
-        android:id="@+id/username"
+        android:id="@+id/welcomeback"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/profile_image"
-        android:layout_centerInParent="true"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginTop="25dp"
         android:fontFamily="@font/inter_bold"
-        android:text="User"
-        android:textColor="@color/ms_black_txt"
-        android:textSize="23sp"
-        android:textStyle="bold">
+        android:text="Welcome Back!"
+        android:textColor="@color/ms_deep_blue"
+        android:textSize="20sp">
 
     </TextView>
 
-    <LinearLayout
-        android:orientation="vertical"
+    <TextView
+        android:id="@+id/usernameTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/welcomeback"
+        android:fontFamily="@font/inter_regular"
+        android:text="Username"
+        android:textColor="@color/ms_deep_blue"
+        android:textSize="22sp">
 
+    </TextView>
+
+    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/profile_image"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="25dp"
+        android:elevation="5dp"
+        android:src="@drawable/kokonod" />
+
+
+    <LinearLayout
+        android:id="@+id/currentLocationInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/usernameTV"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/rounded_btn_35"
+        android:backgroundTint="@color/ms_light_grey"
+        android:orientation="horizontal"
+        android:padding="20dp">
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/ic_gps"
+            android:backgroundTint="@color/ms_pale_blue">
+
+        </ImageView>
+
+        <TextView
+            android:id="@+id/loc_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:fontFamily="@font/inter_medium"
+            android:maxLines="2"
+            android:text="Location"
+            android:textColor="@color/ms_black_txt"
+            android:textSize="14sp"
+            android:textStyle="bold">
+
+        </TextView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_below="@id/currentLocationInfo"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
 
-
-
-
         <LinearLayout
+            android:id="@+id/mapMain"
         android:layout_marginTop="10dp"
             android:layout_marginBottom="20dp"
         android:layout_width="match_parent"
             android:orientation="vertical"
         android:layout_height="wrap_content">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/inter_regular"
-                android:text="Current Location"
-                android:textColor="@color/ms_black_txt"
-                android:textSize="14sp">
 
-            </TextView>
-
-
-            <TextView
-                android:id="@+id/loc_value"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/inter_bold"
-                android:text="Location"
-                android:textStyle="bold"
-                android:textColor="@color/ms_black_txt"
-                android:textSize="16sp">
-
-            </TextView>
 
             <androidx.cardview.widget.CardView
-                android:elevation="3dp"
-                app:cardCornerRadius="20dp"
-                android:layout_marginTop="10dp"
+                android:elevation="10dp"
+                app:cardCornerRadius="35dp"
+                android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
-                android:layout_height="180dp">
+                android:layout_height="330dp">
                 <FrameLayout
                     android:id="@+id/myMapView"
                     android:layout_width="match_parent"
-                    android:layout_height="180dp">
+                    android:layout_height="match_parent">
 
                 </FrameLayout>
 
@@ -96,7 +115,142 @@
 
     </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/currentLocationInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/mapMain"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/rounded_btn_35"
+            android:backgroundTint="@color/ms_blue"
+            android:orientation="horizontal"
+            android:padding="15dp">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:gravity="end"
+                    android:layout_centerInParent="true"
+                    android:textSize="17sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/profile_image"
+                    android:fontFamily="@font/inter_bold"
+                    android:text="Speed">
+                </TextView>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <ProgressBar
+                        android:id="@+id/speed_progress_bar"
+                        android:indeterminateOnly="false"
+                        android:progressDrawable="@drawable/circular_progress_bar"
+                        tools:progress="20"
+                        android:rotation="-90"
+                        android:layout_width="90dp"
+                        android:layout_height="90dp">
+
+                    </ProgressBar>
+
+                    <TextView
+                        android:id="@+id/speed_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/inter_bold"
+                        android:gravity="end"
+                        android:textColor="@color/white"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        android:text="20"
+                        app:layout_constraintBottom_toBottomOf="@+id/speed_progress_bar"
+                        app:layout_constraintEnd_toEndOf="@+id/speed_progress_bar"
+                        app:layout_constraintStart_toStartOf="@+id/speed_progress_bar"
+                        app:layout_constraintTop_toTopOf="@+id/speed_progress_bar">
+
+                    </TextView>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:gravity="end"
+                    android:layout_centerInParent="true"
+                    android:textSize="17sp"
+                    android:textAlignment="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/profile_image"
+                    android:fontFamily="@font/inter_bold"
+                    android:text="Acc">
+                </TextView>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <ProgressBar
+                        android:id="@+id/acc_progress_bar"
+                        android:indeterminateOnly="false"
+                        android:progressDrawable="@drawable/circular_progress_bar"
+                        tools:progress="20"
+                        android:rotation="-90"
+                        android:layout_width="90dp"
+                        android:layout_height="90dp">
+
+                    </ProgressBar>
+
+                    <TextView
+                        android:id="@+id/acc_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/inter_bold"
+                        android:gravity="end"
+                        android:text="2"
+                        android:textColor="@color/white"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/acc_progress_bar"
+                        app:layout_constraintStart_toStartOf="@+id/acc_progress_bar"
+                        app:layout_constraintTop_toTopOf="@+id/acc_progress_bar">
+
+                    </TextView>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+
+
+
+
+
+
     <LinearLayout
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -211,20 +365,7 @@
             android:orientation="vertical"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:textStyle="bold"
-                android:textColor="@color/ms_black_txt"
-                android:gravity="end"
-                android:layout_centerInParent="true"
-                android:textSize="17sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/profile_image"
-                android:fontFamily="@font/inter_bold"
-                android:layout_marginBottom="20dp"
-                android:text="Gyro">
 
-            </TextView>
 
             <LinearLayout
                 android:layout_marginLeft="10dp"
@@ -313,6 +454,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:visibility="gone"
         android:layout_marginTop="30dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -385,8 +527,4 @@
     </LinearLayout>
 
 
-
-
-
-
-</LinearLayout>
+</RelativeLayout>

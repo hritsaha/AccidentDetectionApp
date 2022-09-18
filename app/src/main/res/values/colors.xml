@@ -12,4 +12,10 @@
     <color name="ms_black_txt">#212121</color>
     <color name="ms_red">#F94B4B</color>
     <color name="ms_light_txt">#929292</color>
+
+
+    <color name="ms_blue">#6943FF</color>
+    <color name="ms_pale_blue">#9B81FF</color>
+    <color name="ms_deep_blue">#171421</color>
+    <color name="ms_light_grey">#E6E6E6</color>
 </resources>

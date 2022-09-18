@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_main"
+    android:orientation="vertical"
+    tools:context=".Firebase.DetailsActivity">
+
+
+    <LinearLayout
+        android:layout_gravity="center"
+        android:id="@+id/topGraphic"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:background="@drawable/rounded_curve"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:padding="30dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile_pic"
+                android:layout_width="105dp"
+                android:layout_height="105dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="25dp"
+                android:background="@drawable/profile_avatar" />
+
+            <EditText
+                android:id="@+id/Name_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/btn_addImage"
+                android:layout_marginTop="20dp"
+                android:ems="10"
+                android:fontFamily="@font/inter_regular"
+                android:hint="Name"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/Age_text"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_below="@id/Name_text"
+                android:layout_marginTop="10dp"
+                android:ems="10"
+                android:fontFamily="@font/inter_regular"
+                android:hint="Age"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/Sex_text"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_below="@id/Age_text"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/inter_regular"
+                android:ems="10"
+                android:hint="Sex"
+                android:inputType="textPersonName" />
+
+            <Button
+                android:id="@+id/btn_Contact"
+                style="@style/Widget.MaterialComponents.Button.Icon"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_below="@id/Sex_text"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/rounded_btn"
+                android:fontFamily="@font/inter_bold"
+                android:text="Contact"
+                app:backgroundTint="@color/ms_blue"
+                app:icon="@drawable/ic_person" />
+
+
+            <TextView
+                android:id="@+id/Contact_counter_text"
+                android:layout_width="90dp"
+                android:layout_height="34dp"
+                android:layout_marginEnd="68dp" />
+
+
+            <Button
+                android:id="@+id/btn_addImage"
+                style="@style/Widget.MaterialComponents.Button.Icon"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_below="@id/profile_pic"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/rounded_btn"
+                android:backgroundTint="@color/ms_blue"
+                android:text="Add Image"
+                app:icon="@drawable/ic_add" />
+
+            <Button
+                android:id="@+id/btn_saveDetails"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/rounded_btn"
+                android:fontFamily="@font/inter_bold"
+                android:text="Next"
+                android:textSize="19sp"
+                app:backgroundTint="#171421" />
+
+            <ProgressBar
+                android:id="@+id/p_bar_2"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_below="@id/btn_Contact"
+                android:layout_centerHorizontal="true"
+                android:visibility="invisible"
+                android:layout_marginTop="35dp"
+                app:tint="@color/ms_deep_blue" />
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/bg_main"
+    tools:context=".Firebase.WelcomeActivity">
+
+    <LinearLayout
+        android:id="@+id/title"
+        android:layout_marginTop="70dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_marginTop="10dp"
+            android:background="@drawable/map_marker"
+            android:layout_width="40dp"
+            android:layout_height="40dp">
+
+        </ImageView>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/inter_regular"
+            android:text="ACC"
+            android:textColor="@color/white"
+            android:textSize="42sp">
+
+        </TextView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/inter_bold"
+            android:text="SAFE"
+            android:textColor="@color/ms_blue"
+            android:textSize="42sp"
+            android:textStyle="bold">
+
+        </TextView>
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="305dp"
+        android:layout_height="360dp"
+        android:layout_below="@id/title"
+        android:layout_centerInParent="true"
+        android:background="@drawable/car_logo">
+
+    </ImageView>
+
+    <Button
+        android:id="@+id/btn_login_w"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/btn_signup_w"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/rounded_btn"
+        android:fontFamily="@font/inter_bold"
+        android:text="Login"
+        android:textColor="@color/ms_deep_blue"
+        android:textSize="19sp"
+        app:backgroundTint="@color/white" />
+
+
+    <Button
+        android:id="@+id/btn_signup_w"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/rounded_btn"
+        android:fontFamily="@font/inter_bold"
+        android:text="SIGN UP"
+        android:textColor="@color/white"
+        android:textSize="19sp"
+        app:backgroundTint="@color/ms_blue" />
+
+
+
+
+</RelativeLayout>

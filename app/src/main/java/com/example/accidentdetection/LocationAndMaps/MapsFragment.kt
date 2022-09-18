@@ -96,6 +96,8 @@ class MapsFragment : Fragment() ,LocationListener,OnMapReadyCallback,LocationSou
                                      val markerOptions = MarkerOptions().position(latlng).title("Me")
                                 markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.kokonod))
                                 markerOptions.rotation(location.bearing)
+                                markerOptions.anchorU
+                                markerOptions.anchorV
                                 userLocationMarker = googleMap.addMarker(markerOptions)!!
                                 googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latlng,17f))
                             }

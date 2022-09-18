@@ -25,8 +25,16 @@ public class sendSms {
     public void sendSms(Context context,String lastUpdatedLocation,Double lastUpdatedLat,Double lastUpdatedLong){
         results.add("7797571334");
         results.add("6294433062");
-        results.add("8670632396");
+//        results.add("8670632396");
+        results.add("Kokonad Clg");
+        results.add("Swarup");
         results.add("8768478562");
+//        results.add("7407535973");
+
+        //sandipan sir
+//        results.add("9830561274");
+//        results.add("8240290384");
+        results.add("7586949429");
 
         //  text = findViewById(R.id.txt_message);
         //PERMISSION
@@ -44,7 +52,7 @@ public class sendSms {
         try {
             String txt ="Accident Location : "+lastUpdatedLocation.toString();
             String mapLink = "https://www.google.com/maps/search/?api=1&query="+lastUpdatedLat.toString()+","+lastUpdatedLong.toString();
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < results.toArray().length; i++)
                 smsManager.sendTextMessage(results.get(i), null, mapLink.toString(), null, null);
             Toast.makeText(context,"SMS sent",Toast.LENGTH_SHORT).show();
         }

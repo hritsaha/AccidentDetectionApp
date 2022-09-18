@@ -1,7 +1,10 @@
 package com.example.accidentdetection
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
@@ -9,14 +12,12 @@ import android.hardware.SensorManager
 import android.location.Geocoder
 import android.location.Location
 import android.os.*
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager.LayoutParams
-import android.widget.Button
-import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
@@ -27,7 +28,9 @@ import androidx.core.content.ContextCompat
 import androidx.core.os.postDelayed
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import com.bumptech.glide.Glide
 import com.example.accidentdetection.AlertSystem.Distance
+import com.example.accidentdetection.Firebase.ProfileDetailsActivity
 import com.example.accidentdetection.LocationAndMaps.MapsFragment
 import com.example.accidentdetection.LocationAndMaps.PermissionUtils
 import com.example.accidentdetection.LocationAndMaps.Vals
@@ -36,6 +39,12 @@ import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
+import com.squareup.picasso.Picasso
+import org.w3c.dom.Text
+import java.io.File
 import java.util.*
 import kotlin.concurrent.thread
 
@@ -63,6 +72,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     internal var countOn : Boolean = true
     private var counting = 0
     lateinit var dialogLayout :View
+    internal var isDialogBoxLaunched : Boolean = false
 
     lateinit var locationRes : Location
 
@@ -112,6 +122,16 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         loadMap()
 
 
+        //load user details
+        loadUserDetails()
+
+        //profile pic
+//        val pp : ImageView =  findViewById(R.id.profile_image)
+//        pp.setOnClickListener {
+//            val intent =Intent(this,ProfileDetailsActivity::class.java)
+//            startActivity(intent)
+//        }
+
         //SMS permission
         sendSms().checkSmsPermission(this)
 
@@ -119,8 +139,6 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             isSendSmsPermissionGranted=permissions[Manifest.permission.SEND_SMS]?: isSendSmsPermissionGranted
         }
         requestSmsPermission()
-
-
     }
 
 
@@ -194,12 +212,17 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     private fun checkThreshold(x : Double,y:Double,z:Double) : Boolean{
         val ax2 = Math.pow(x,2.0)
         val ay2 = Math.pow(y,2.0)
-        val az2 = Math.pow(x,2.0)
+        val az2 = Math.pow(z,2.0)
         val aSum = ax2+ay2+az2
         val acc = Math.sqrt(aSum)
         val GVAL = acc / 9.806
+        val progressBar : ProgressBar = findViewById(R.id.acc_progress_bar)
+        progressBar.progress= (GVAL*25).toInt()
+        val accValue : TextView = findViewById(R.id.acc_value)
+        accValue.text= (GVAL*25).toInt().toString()
 
         if(GVAL > 4){
+            Toast.makeText(this,"$GVAL",Toast.LENGTH_LONG).show()
             return true
         }
         return false
@@ -207,12 +230,15 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
     //Code For launching Dialog Box
     private fun stopListening(){
-        sensorManager.unregisterListener(this,ameter)
-        sensorManager.unregisterListener(this,gmeter)
-        launchDialogBox()
+        if(isDialogBoxLaunched == false){
+            sensorManager.unregisterListener(this,ameter)
+            sensorManager.unregisterListener(this,gmeter)
+            launchDialogBox()
+        }
     }
 
     private fun launchDialogBox(){
+        isDialogBoxLaunched=true
 
         dialogLayout = LayoutInflater.from(this).inflate(R.layout.custom_dialog,null)
         val mBuilder = AlertDialog.Builder(this)
@@ -223,15 +249,19 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         timerStart()
 
         dialogLayout.findViewById<Button>(R.id.nohelpBtn).setOnClickListener {
+
+            setUpSensor()
+            isDialogBoxLaunched=false
+
             mAlertDialog.dismiss()
             countDownTimer.cancel()
         }
         dialogLayout.findViewById<Button>(R.id.helpBtn).setOnClickListener {
+
             sendSms().sendSms(this,lastUpdatedLocation,lastUpdatedLat,lastUpdatedLong)
             countOn=false
             mAlertDialog.dismiss()
         }
-
 
     }
 
@@ -336,22 +366,60 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         fusedLocationProviderClient.requestLocationUpdates(
             locationRequest,
             object : LocationCallback() {
+
+                //NEW
+                var previousLocation: Location? = null
+
                 override fun onLocationResult(locationResult: LocationResult) {
                     super.onLocationResult(locationResult)
+
                     for (location in locationResult.locations) {
                         val lat : TextView = findViewById(R.id.lat_value)
                         val long : TextView = findViewById(R.id.long_value)
                         lastUpdatedLocation =getCity(location.latitude,location.longitude).toString()
                         val loc : TextView = findViewById(R.id.loc_value)
+                        val speedMeter : TextView = findViewById(R.id.speed_value)
+                        val speedProgressBar :  ProgressBar = findViewById(R.id.speed_progress_bar)
 
                         Vals.lati=location.latitude
                         Vals.longi=location.longitude
+
+
+
+                        //calculate speed (Km/H)
+                        locationRes=locationResult.lastLocation
+                        var speedToInt = locationRes.speed  //original speed
+                        var speedHrit = Math.round((speedToInt*3.6)).toDouble().toInt()
+
+                        if(locationRes != null){
+                            if(locationRes.hasSpeed()){
+                                speedToInt = locationRes.speed
+                                speedHrit= Math.round((speedToInt*3.6)).toDouble().toInt()
+                            }
+                        }
+
+//                        val speedHrit = if (location.hasSpeed()) {
+//                            location.speed
+//                        } else {
+//                            previousLocation?.let { lastLocation ->
+//                                // Convert milliseconds to seconds
+//                                val elapsedTimeInSeconds = (location.time - lastLocation.time) / 1_000
+//                                val distanceInMeters = lastLocation.distanceTo(location)
+//                                // Speed in m/s
+//                                (distanceInMeters / elapsedTimeInSeconds)*3.6
+//                            } ?: 0.0
+//                        }
+//                        previousLocation = location
+
+
 
                         runOnUiThread {
                             lat.text = location.latitude.toString()
                             long.text = location.longitude.toString()
                             loc.text= lastUpdatedLocation.toString()
                             alertSystem(Vals.lati,Vals.longi)
+                            speedMeter.text= "${speedHrit.toString()}"
+                            speedProgressBar.progress=(speedHrit*0.55).toInt()
                         }
 
                         lastUpdatedLat=location.latitude
@@ -409,7 +477,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     private fun getCity(lat: Double,long:Double) : String{
         var cityName=""
         var geoCoder = Geocoder(this, Locale.getDefault())
-        var address = geoCoder.getFromLocation(lat,long,5)
+        var address = geoCoder.getFromLocation(lat,long,3)
         var area = address.get(0).getAddressLine(0).toString()
         var city = address.get(0).locality
         var state = address.get(0).adminArea
@@ -435,6 +503,35 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             }
         }, 3000)
 
+    }
+
+
+    private fun loadUserDetails(){
+        val auth = FirebaseAuth.getInstance()
+        val nameTxt : TextView = findViewById(R.id.usernameTV)
+        val usrProfilePic : ImageView = findViewById(R.id.profile_image)
+
+        //cloud firestore
+        val firestore = FirebaseFirestore.getInstance()
+        val ref=firestore.collection("User").document(auth.uid.toString())
+        ref.get()
+            .addOnSuccessListener {document->
+                if(document != null){
+                    val usr = document.get("Name")
+                    nameTxt.text= usr.toString()
+                }
+                else {
+                    Log.d("FIRESTORE", "No such document")
+                }
+            }
+
+        //storage
+        val localFile = File.createTempFile("tempImage","jpg")
+        FirebaseStorage.getInstance().getReference("profilePicUploads/${auth.currentUser!!.uid}/${auth.currentUser!!.uid}.jpg")
+            .getFile(localFile).addOnSuccessListener {
+                val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
+                usrProfilePic.setImageBitmap(bitmap)
+            }
     }
 
 }

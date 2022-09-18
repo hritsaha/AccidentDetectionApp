@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_login"
+    android:orientation="vertical"
+    tools:context=".Firebase.LoginActivity">
+
+
+    <LinearLayout
+        android:layout_gravity="center"
+        android:id="@+id/topGraphic"
+        android:layout_width="match_parent"
+        android:layout_height="260dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:background="@drawable/map_marker"
+                android:layout_width="50dp"
+                android:layout_height="50dp">
+
+            </ImageView>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_regular"
+                android:text="ACC"
+                android:textColor="@color/white"
+
+                android:textSize="47sp">
+
+            </TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_bold"
+                android:text="SAFE"
+                android:textColor="@color/ms_deep_blue"
+                android:textSize="47sp"
+                android:textStyle="bold">
+
+            </TextView>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:background="@drawable/rounded_curve"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:padding="30dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <TextView
+                android:id="@+id/loginDis"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="23dp"
+                android:fontFamily="@font/inter_bold"
+                android:text="Login"
+                android:textColor="@color/ms_deep_blue"
+                android:textSize="25sp">
+
+            </TextView>
+
+            <EditText
+                android:id="@+id/txt_email_login"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_below="@id/loginDis"
+                android:ems="10"
+                android:fontFamily="@font/inter_regular"
+                android:hint="Email"
+                android:inputType="textPersonName"
+                tools:ignore="TextFields" />
+
+
+            <EditText
+                android:id="@+id/txt_password_login"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_below="@+id/txt_email_login"
+                android:ems="10"
+                android:fontFamily="@font/inter_regular"
+                android:hint="Password"
+                android:inputType="textPassword"
+                app:endIconMode="password_toggle" />
+
+            <ProgressBar
+                android:id="@+id/p_bar"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_above="@id/btn_login"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="40dp"
+                app:tint="@color/ms_deep_blue" />
+
+            <Button
+                android:id="@+id/btn_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="30dp"
+                android:background="@drawable/rounded_btn"
+                android:fontFamily="@font/inter_bold"
+                android:text="Login"
+                android:textSize="19sp"
+                app:backgroundTint="#171421" />
+
+            <TextView
+                android:id="@+id/textView_register"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerInParent="true"
+                android:fontFamily="@font/inter_medium"
+                android:text="Create Account"
+                android:textColor="@color/ms_blue" />
+
+            <TextView
+                android:id="@+id/textView_forgotPass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txt_password_login"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/inter_medium"
+                android:text="Forgot Password"
+                android:textColor="@color/ms_blue" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>
