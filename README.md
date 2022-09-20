@@ -17,7 +17,5 @@ Application to Prevent and Detect Accidents
 
   <img src="https://user-images.githubusercontent.com/64214943/191170056-3a6163b1-c972-455b-836a-17f6f5fe98f8.png" width="250">
   <img src="https://user-images.githubusercontent.com/64214943/191170091-ce10bde7-33ce-4ae8-a38e-e27e7e925f11.png" width="250">
-  <img src="https://user-images.githubusercontent.com/64214943/189518868-27967a9b-36d9-48b0-bd70-f6a9555fd524.png" width="250">
-  <img src="https://user-images.githubusercontent.com/64214943/189518872-bec506f9-389d-42f1-be5b-c3ae8318e4f1.png" width="250">
   
 </p>
