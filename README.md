@@ -1,4 +1,5 @@
-# AccidentDetectionApp
+# AccSafe 
+Accident Detection Android App
 Application to Prevent and Detect Accidents
 
 
